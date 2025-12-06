@@ -32,7 +32,7 @@ export interface DefenderRequirement {
 /**
  * Analyze room threats and determine defender requirements
  */
-export function analyzeDefenderNeeds(room: Room, swarm: SwarmState): DefenderRequirement {
+export function analyzeDefenderNeeds(room: Room, _swarm: SwarmState): DefenderRequirement {
   const result: DefenderRequirement = {
     guards: 0,
     rangers: 0,

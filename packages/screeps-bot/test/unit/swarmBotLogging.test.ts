@@ -45,8 +45,8 @@ describe("SwarmBot logging", () => {
 
     // @ts-ignore: test setup for Game globals
     global.Game.creeps = {
-      alpha: { memory: { role: "builder" }, spawning: false },
-      beta: { memory: { role: "hauler" }, spawning: false }
+      alpha: { memory: { role: "builder", room: "W1N1", working: false } as any, spawning: false } as any,
+      beta: { memory: { role: "hauler", room: "W1N1", working: false } as any, spawning: false } as any
     };
     // @ts-ignore: test setup for Game globals
     global.Game.time = 12350; // divisible by 50 to satisfy logging interval
@@ -78,7 +78,7 @@ describe("SwarmBot logging", () => {
 
     // @ts-ignore: test setup for Game globals
     global.Game.rooms = {
-      W1N1: { name: "W1N1", controller: { my: true } }
+      W1N1: { name: "W1N1", controller: { my: true } as any } as any
     };
 
     bot.loop();

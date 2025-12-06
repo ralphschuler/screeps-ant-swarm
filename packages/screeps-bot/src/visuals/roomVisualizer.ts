@@ -12,7 +12,7 @@
  * Addresses Issue: #34
  */
 
-import type { SwarmState, PheromoneState } from "../memory/schemas";
+import type { PheromoneState, SwarmState } from "../memory/schemas";
 import { memoryManager } from "../memory/manager";
 
 /**
@@ -274,7 +274,7 @@ export class RoomVisualizer {
     if (hostiles.length > 0) {
       const towers = room.find(FIND_MY_STRUCTURES, {
         filter: s => s.structureType === STRUCTURE_TOWER
-      }) as StructureTower[];
+      }) ;
 
       for (const tower of towers) {
         // Optimal range (full damage)
@@ -417,7 +417,7 @@ export class RoomVisualizer {
     // Draw roads with usage intensity
     const roads = room.find(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_ROAD
-    }) as StructureRoad[];
+    }) ;
 
     for (const road of roads) {
       // Color based on hits (more traffic = more damage)

@@ -16,7 +16,7 @@
 
 import { Command, commandRegistry, registerDecoratedCommands } from "./commandRegistry";
 import { kernel } from "./kernel";
-import { configureLogger, getLoggerConfig, LogLevel } from "./logger";
+import { LogLevel, configureLogger, getLoggerConfig } from "./logger";
 import { memorySegmentStats } from "./memorySegmentStats";
 import { profiler } from "./profiler";
 import { getConfig, updateConfig } from "../config";

@@ -22,7 +22,7 @@
  * ```
  */
 
-import { kernel, ProcessPriority, type ProcessFrequency } from "./kernel";
+import { type ProcessFrequency, ProcessPriority, kernel } from "./kernel";
 import { logger } from "./logger";
 
 /**

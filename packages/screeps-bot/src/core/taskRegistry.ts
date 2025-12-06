@@ -7,7 +7,7 @@
  * Addresses Issue: #30
  */
 
-import { scheduler, createLowFrequencyTask, createMediumFrequencyTask } from "./scheduler";
+import { createLowFrequencyTask, createMediumFrequencyTask, scheduler } from "./scheduler";
 import type { SwarmState } from "../memory/schemas";
 import { empireManager } from "../empire/empireManager";
 import { clusterManager } from "../clusters/clusterManager";

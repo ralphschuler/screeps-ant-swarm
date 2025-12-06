@@ -12,18 +12,18 @@
 
 import type {
   InterShardMemorySchema,
-  ShardState,
-  ShardRole,
-  ShardHealthMetrics,
   InterShardTask,
-  PortalInfo
+  PortalInfo,
+  ShardHealthMetrics,
+  ShardRole,
+  ShardState
 } from "./schema";
 import {
+  INTERSHARD_MEMORY_LIMIT,
   createDefaultInterShardMemory,
   createDefaultShardState,
-  serializeInterShardMemory,
   deserializeInterShardMemory,
-  INTERSHARD_MEMORY_LIMIT
+  serializeInterShardMemory
 } from "./schema";
 import { logger } from "../core/logger";
 import { LowFrequencyProcess, ProcessClass } from "../core/processDecorators";

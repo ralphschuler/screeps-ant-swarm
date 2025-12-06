@@ -196,7 +196,7 @@ export function buildKernelConfigFromCpu(cpuConfig: CPUConfig): KernelConfig {
   };
 }
 
-type FrequencyDefaults = { interval: number; minBucket: number; cpuBudget: number };
+interface FrequencyDefaults { interval: number; minBucket: number; cpuBudget: number }
 
 /**
  * Kernel - Central Process Manager

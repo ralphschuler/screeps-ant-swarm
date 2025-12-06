@@ -9,6 +9,7 @@
     "sourceMap": true,
     "strict": true,
     "experimentalDecorators": true,
+    "downlevelIteration": true,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false

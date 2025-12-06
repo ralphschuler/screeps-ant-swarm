@@ -5,10 +5,10 @@
  * Includes defense, offense, and squad-based combat.
  */
 
-import type { CreepAction, CreepContext } from "./types";
 import type { SquadMemory, SwarmCreepMemory } from "../../memory/schemas";
-import { safeFindClosestByRange } from "../../utils/safeFind";
 import { findCachedClosest } from "../../utils/cachedClosest";
+import { safeFindClosestByRange } from "../../utils/safeFind";
+import type { CreepAction, CreepContext } from "./types";
 
 // =============================================================================
 // Patrol System

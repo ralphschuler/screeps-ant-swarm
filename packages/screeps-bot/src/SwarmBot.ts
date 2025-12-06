@@ -38,7 +38,7 @@ import { registerAllProcesses } from "./core/processRegistry";
 import { roomVisualizer } from "./visuals/roomVisualizer";
 import { memorySegmentStats } from "./core/memorySegmentStats";
 import { getConfig } from "./config";
-import { configureLogger, LogLevel, logger } from "./core/logger";
+import { LogLevel, configureLogger, logger } from "./core/logger";
 import { canSkipBehaviorEvaluation, executeIdleAction } from "./utils/idleDetection";
 
 // =============================================================================

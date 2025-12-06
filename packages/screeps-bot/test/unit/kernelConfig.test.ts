@@ -5,9 +5,16 @@ import { Kernel, buildKernelConfigFromCpu } from "../../src/core/kernel";
 describe("Kernel CPU configuration", () => {
   beforeEach(() => {
     resetConfig();
-    Game.time = 0;
-    Game.cpu.bucket = 10000;
-    Game.cpu.limit = 50;
+    // @ts-ignore: Allow setting test values
+    global.Game = {
+      ...global.Game,
+      time: 0,
+      cpu: {
+        ...global.Game.cpu,
+        bucket: 10000,
+        limit: 50
+      }
+    };
   });
 
   it("respects CPU bucket thresholds from configuration", () => {

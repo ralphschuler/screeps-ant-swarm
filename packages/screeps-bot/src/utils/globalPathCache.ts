@@ -93,10 +93,11 @@ export class GlobalPathCache {
     }
 
     // Compute new path
+    const self = this;
     const result = PathFinder.search(from, { pos: to, range: 1 }, {
       plainCost: 2,
       swampCost: 10,
-      roomCallback: opts?.roomCallback ?? ((roomName) => this.getCostMatrix(roomName)),
+      roomCallback: opts?.roomCallback ?? ((roomName) => self.getCostMatrix(roomName)),
       maxRooms: opts?.maxRooms,
       maxOps: opts?.maxOps,
       heuristicWeight: opts?.heuristicWeight

@@ -5,10 +5,10 @@
  * Includes scouting, claiming, engineering, and logistics.
  */
 
-import type { CreepAction, CreepContext } from "./types";
 import type { RoomIntel } from "../../memory/schemas";
-import { safeFind } from "../../utils/safeFind";
 import { isCreepOnRoomExit } from "../../utils/movement";
+import { safeFind } from "../../utils/safeFind";
+import type { CreepAction, CreepContext } from "./types";
 
 // =============================================================================
 // Overmind / Intel Helpers
@@ -253,7 +253,7 @@ export function engineer(ctx: CreepContext): CreepAction {
 
     const rampart = ctx.creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_RAMPART && s.hits < repairTarget
-    }) as StructureRampart | null;
+    }) ;
     if (rampart) return { type: "repair", target: rampart };
 
     // Walls

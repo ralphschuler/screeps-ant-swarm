@@ -167,6 +167,87 @@ global.RESOURCE_ZYNTHIUM = 'Z';
 global.RESOURCE_CATALYST = 'X';
 global.RESOURCE_GHODIUM = 'G';
 
+// Tier 1 compounds
+global.RESOURCE_HYDROXIDE = 'OH';
+global.RESOURCE_ZYNTHIUM_KEANITE = 'ZK';
+global.RESOURCE_UTRIUM_LEMERGITE = 'UL';
+global.RESOURCE_GHODIUM = 'G';
+
+// Tier 2 compounds  
+global.RESOURCE_UTRIUM_HYDRIDE = 'UH';
+global.RESOURCE_UTRIUM_OXIDE = 'UO';
+global.RESOURCE_KEANIUM_HYDRIDE = 'KH';
+global.RESOURCE_KEANIUM_OXIDE = 'KO';
+global.RESOURCE_LEMERGIUM_HYDRIDE = 'LH';
+global.RESOURCE_LEMERGIUM_OXIDE = 'LO';
+global.RESOURCE_ZYNTHIUM_HYDRIDE = 'ZH';
+global.RESOURCE_ZYNTHIUM_OXIDE = 'ZO';
+global.RESOURCE_GHODIUM_HYDRIDE = 'GH';
+global.RESOURCE_GHODIUM_OXIDE = 'GO';
+
+// Tier 3 compounds
+global.RESOURCE_UTRIUM_ACID = 'UH2O';
+global.RESOURCE_UTRIUM_ALKALIDE = 'UHO2';
+global.RESOURCE_KEANIUM_ACID = 'KH2O';
+global.RESOURCE_KEANIUM_ALKALIDE = 'KHO2';
+global.RESOURCE_LEMERGIUM_ACID = 'LH2O';
+global.RESOURCE_LEMERGIUM_ALKALIDE = 'LHO2';
+global.RESOURCE_ZYNTHIUM_ACID = 'ZH2O';
+global.RESOURCE_ZYNTHIUM_ALKALIDE = 'ZHO2';
+global.RESOURCE_GHODIUM_ACID = 'GH2O';
+global.RESOURCE_GHODIUM_ALKALIDE = 'GHO2';
+
+// Commodities
+global.RESOURCE_CATALYZED_UTRIUM_ACID = 'XUH2O';
+global.RESOURCE_CATALYZED_UTRIUM_ALKALIDE = 'XUHO2';
+global.RESOURCE_CATALYZED_KEANIUM_ACID = 'XKH2O';
+global.RESOURCE_CATALYZED_KEANIUM_ALKALIDE = 'XKHO2';
+global.RESOURCE_CATALYZED_LEMERGIUM_ACID = 'XLH2O';
+global.RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = 'XLHO2';
+global.RESOURCE_CATALYZED_ZYNTHIUM_ACID = 'XZH2O';
+global.RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = 'XZHO2';
+global.RESOURCE_CATALYZED_GHODIUM_ACID = 'XGH2O';
+global.RESOURCE_CATALYZED_GHODIUM_ALKALIDE = 'XGHO2';
+
+// Other resources
+global.RESOURCE_OPS = 'ops';
+global.RESOURCE_UTRIUM_BAR = 'utrium_bar';
+global.RESOURCE_LEMERGIUM_BAR = 'lemergium_bar';
+global.RESOURCE_ZYNTHIUM_BAR = 'zynthium_bar';
+global.RESOURCE_KEANIUM_BAR = 'keanium_bar';
+global.RESOURCE_GHODIUM_MELT = 'ghodium_melt';
+global.RESOURCE_OXIDANT = 'oxidant';
+global.RESOURCE_REDUCTANT = 'reductant';
+global.RESOURCE_PURIFIER = 'purifier';
+global.RESOURCE_BATTERY = 'battery';
+global.RESOURCE_COMPOSITE = 'composite';
+global.RESOURCE_CRYSTAL = 'crystal';
+global.RESOURCE_LIQUID = 'liquid';
+global.RESOURCE_WIRE = 'wire';
+global.RESOURCE_SWITCH = 'switch';
+global.RESOURCE_TRANSISTOR = 'transistor';
+global.RESOURCE_MICROCHIP = 'microchip';
+global.RESOURCE_CIRCUIT = 'circuit';
+global.RESOURCE_DEVICE = 'device';
+global.RESOURCE_CELL = 'cell';
+global.RESOURCE_PHLEGM = 'phlegm';
+global.RESOURCE_TISSUE = 'tissue';
+global.RESOURCE_MUSCLE = 'muscle';
+global.RESOURCE_ORGANOID = 'organoid';
+global.RESOURCE_ORGANISM = 'organism';
+global.RESOURCE_ALLOY = 'alloy';
+global.RESOURCE_TUBE = 'tube';
+global.RESOURCE_FIXTURES = 'fixtures';
+global.RESOURCE_FRAME = 'frame';
+global.RESOURCE_HYDRAULICS = 'hydraulics';
+global.RESOURCE_MACHINE = 'machine';
+global.RESOURCE_CONDENSATE = 'condensate';
+global.RESOURCE_CONCENTRATE = 'concentrate';
+global.RESOURCE_EXTRACT = 'extract';
+global.RESOURCE_SPIRIT = 'spirit';
+global.RESOURCE_EMANATION = 'emanation';
+global.RESOURCE_ESSENCE = 'essence';
+
 // Mock body part constants
 global.MOVE = 'move';
 global.WORK = 'work';
@@ -207,6 +288,7 @@ global.COLOR_WHITE = 10;
 global.CREEP_LIFE_TIME = 1500;
 global.CREEP_CLAIM_LIFE_TIME = 600;
 global.CREEP_CORPSE_RATE = 0.2;
+global.CREEP_SPAWN_TIME = 3;
 global.OBSTACLE_OBJECT_TYPES = ['spawn', 'creep', 'wall', 'source', 'constructedWall', 'extension', 'link', 'storage', 'tower', 'observer', 'powerSpawn', 'powerBank', 'lab', 'terminal', 'nuker', 'factory', 'invaderCore'];
 global.BODYPART_COST = {
   move: 50,
@@ -219,11 +301,131 @@ global.BODYPART_COST = {
   claim: 600
 };
 
+// CPU and pixel constants
+global.PIXEL_CPU_COST = 10000;
+global.CPU_POWER_CREDIT_COST = 0.01;
+
+// Structure constants
+global.SPAWN_ENERGY_CAPACITY = 300;
+global.SPAWN_ENERGY_START = 300;
+global.SPAWN_HITS = 5000;
+global.STORAGE_CAPACITY = 1000000;
+global.STORAGE_HITS = 10000;
+global.TERMINAL_CAPACITY = 300000;
+global.TERMINAL_HITS = 3000;
+global.LINK_CAPACITY = 800;
+global.LINK_COOLDOWN = 1;
+global.LINK_LOSS_RATIO = 0.03;
+global.LINK_HITS = 1000;
+global.LINK_HITS_MAX = 1000;
+global.TOWER_CAPACITY = 1000;
+global.TOWER_HITS = 3000;
+global.TOWER_ENERGY_COST = 10;
+global.TOWER_POWER_ATTACK = 600;
+global.TOWER_POWER_HEAL = 400;
+global.TOWER_POWER_REPAIR = 800;
+global.TOWER_OPTIMAL_RANGE = 5;
+global.TOWER_FALLOFF_RANGE = 20;
+global.TOWER_FALLOFF = 0.75;
+global.LAB_HITS = 500;
+global.LAB_MINERAL_CAPACITY = 3000;
+global.LAB_ENERGY_CAPACITY = 2000;
+global.LAB_BOOST_ENERGY = 20;
+global.LAB_BOOST_MINERAL = 30;
+global.LAB_COOLDOWN = 10;
+global.LAB_REACTION_AMOUNT = 5;
+global.NUKER_HITS = 1000;
+global.NUKER_COOLDOWN = 100000;
+global.NUKER_ENERGY_CAPACITY = 300000;
+global.NUKER_GHODIUM_CAPACITY = 5000;
+global.NUKE_LAND_TIME = 50000;
+global.NUKE_RANGE = 2;
+global.NUKE_DAMAGE = {
+  0: 10000000,
+  2: 5000000
+};
+global.FACTORY_HITS = 1000;
+global.FACTORY_CAPACITY = 50000;
+global.POWER_SPAWN_HITS = 5000;
+global.POWER_SPAWN_ENERGY_CAPACITY = 5000;
+global.POWER_SPAWN_POWER_CAPACITY = 100;
+global.POWER_SPAWN_ENERGY_RATIO = 50;
+global.EXTRACTOR_HITS = 500;
+global.EXTRACTOR_COOLDOWN = 5;
+global.OBSERVER_HITS = 500;
+global.OBSERVER_RANGE = 10;
+global.EXTENSION_HITS = 1000;
+global.EXTENSION_ENERGY_CAPACITY = { 0: 50, 1: 50, 2: 50, 3: 50, 4: 50, 5: 50, 6: 50, 7: 100, 8: 200 };
+global.ROAD_HITS = 5000;
+global.ROAD_WEAROUT = 1;
+global.ROAD_DECAY_AMOUNT = 100;
+global.ROAD_DECAY_TIME = 1000;
+global.CONTAINER_HITS = 250000;
+global.CONTAINER_CAPACITY = 2000;
+global.CONTAINER_DECAY = 5000;
+global.CONTAINER_DECAY_TIME = 100;
+global.CONTAINER_DECAY_TIME_OWNED = 500;
+global.RAMPART_HITS = 1;
+global.RAMPART_HITS_MAX = { 2: 300000, 3: 1000000, 4: 3000000, 5: 10000000, 6: 30000000, 7: 100000000, 8: 300000000 };
+global.RAMPART_DECAY_AMOUNT = 300;
+global.RAMPART_DECAY_TIME = 100;
+global.WALL_HITS = 1;
+global.WALL_HITS_MAX = 300000000;
+global.REPAIR_COST = 0.01;
+global.REPAIR_POWER = 100;
+
+// Energy and source constants
+global.ENERGY_REGEN_TIME = 300;
+global.ENERGY_DECAY = 1000;
+global.SOURCE_ENERGY_CAPACITY = 3000;
+global.SOURCE_ENERGY_NEUTRAL_CAPACITY = 1500;
+global.SOURCE_ENERGY_KEEPER_CAPACITY = 4000;
+
+// Power constants
+global.POWER_BANK_HITS = 2000000;
+global.POWER_BANK_CAPACITY_MAX = 5000;
+global.POWER_BANK_CAPACITY_MIN = 500;
+global.POWER_BANK_CAPACITY_CRIT = 0.3;
+global.POWER_BANK_DECAY = 5000;
+global.POWER_BANK_HIT_BACK = 0.5;
+
+// Controller constants
+global.CONTROLLER_LEVELS = { 1: 200, 2: 45000, 3: 135000, 4: 405000, 5: 1215000, 6: 3645000, 7: 10935000, 8: 0 };
+global.CONTROLLER_DOWNGRADE = { 1: 20000, 2: 10000, 3: 20000, 4: 40000, 5: 80000, 6: 120000, 7: 150000, 8: 200000 };
+global.CONTROLLER_CLAIM_DOWNGRADE = 300;
+global.CONTROLLER_RESERVE = 1;
+global.CONTROLLER_RESERVE_MAX = 5000;
+global.CONTROLLER_MAX_UPGRADE_PER_TICK = 15;
+global.CONTROLLER_ATTACK_BLOCKED_UPGRADE = 1000;
+global.CONTROLLER_NUKE_BLOCKED_UPGRADE = 200;
+
+// Safe mode constants
+global.SAFE_MODE_DURATION = 20000;
+global.SAFE_MODE_COOLDOWN = 50000;
+global.SAFE_MODE_COST = 1000;
+
+// Market constants
+global.MARKET_FEE = 0.05;
+global.MAX_MARKET_ORDERS = 300;
+global.MAX_CREEP_SIZE = 50;
+
 // Mock InterShardMemory
 global.InterShardMemory = {
   getLocal: () => null,
   setLocal: () => undefined,
   getRemote: () => null
+};
+
+// Mock RawMemory
+global.RawMemory = {
+  get: () => JSON.stringify(global.Memory),
+  set: (value) => { global.Memory = JSON.parse(value); },
+  setActiveSegments: () => undefined,
+  segments: {},
+  foreignSegment: undefined,
+  setActiveForeignSegment: () => undefined,
+  setDefaultPublicSegment: () => undefined,
+  setPublicSegments: () => undefined
 };
 
 // Mock PathFinder

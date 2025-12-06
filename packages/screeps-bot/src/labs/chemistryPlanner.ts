@@ -274,7 +274,7 @@ export class ChemistryPlanner {
     // Get available labs
     const labs = room.find(FIND_MY_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_LAB
-    }) as StructureLab[];
+    }) ;
 
     if (labs.length < 3) {
       return null; // Need at least 3 labs for reactions

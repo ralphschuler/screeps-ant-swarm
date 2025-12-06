@@ -31,12 +31,16 @@ describe("main", () => {
 
   it("Automatically delete memory of missing creeps", () => {
     // @ts-ignore: Allow setting test values
-    global.Memory.creeps.persistValue = "any value";
+    global.Memory.creeps.persistValue = { role: "test", room: "W1N1", working: false };
     // @ts-ignore: Allow setting test values
-    global.Memory.creeps.notPersistValue = "any value";
+    global.Memory.creeps.notPersistValue = { role: "test", room: "W1N1", working: false };
 
     // @ts-ignore: Allow setting test values
-    global.Game.creeps.persistValue = "any value";
+    global.Game.creeps.persistValue = { memory: {}, spawning: false };
+    
+    // Advance game time to trigger cleanup (cleanup runs every 10 ticks)
+    // @ts-ignore: Allow setting test values
+    global.Game.time = 10;
 
     loop();
 

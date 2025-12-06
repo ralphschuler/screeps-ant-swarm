@@ -9,10 +9,10 @@
  */
 
 import type { CreepRole, RoleFamily, SwarmCreepMemory, SwarmState } from "../memory/schemas";
-import { type WeightedEntry, weightedSelection } from "../utils/weightedSelection";
-import { getDefenderPriorityBoost } from "../spawning/defenderManager";
-import { memoryManager } from "../memory/manager";
 import { kernel } from "../core/kernel";
+import { memoryManager } from "../memory/manager";
+import { getDefenderPriorityBoost } from "../spawning/defenderManager";
+import { type WeightedEntry, weightedSelection } from "../utils/weightedSelection";
 
 /**
  * Body template definition

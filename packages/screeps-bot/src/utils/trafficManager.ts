@@ -103,7 +103,7 @@ export function requestMoveToPosition(creep: Creep, targetPos: RoomPosition): bo
 export function processMoveRequests(): number {
   let movedCount = 0;
 
-  for (const [posKey, requests] of moveRequests) {
+  for (const [_posKey, requests] of moveRequests) {
     if (requests.length === 0) continue;
 
     // Sort requests by priority (highest first)

@@ -319,7 +319,7 @@ export class MemorySegmentStats {
         statsRoot[`${roomPrefix}.brain.posture_code`] = POSTURE_CODES[swarm.posture];
         statsRoot[`${roomPrefix}.brain.colony_level_code`] = COLONY_LEVEL_CODES[swarm.colonyLevel];
 
-        for (const [pheromone, value] of Object.entries(swarm.pheromones as PheromoneState)) {
+        for (const [pheromone, value] of Object.entries(swarm.pheromones )) {
           statsRoot[`${roomPrefix}.pheromone.${pheromone}`] = value;
         }
 

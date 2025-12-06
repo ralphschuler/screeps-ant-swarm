@@ -17,10 +17,9 @@
  */
 
 import {
-  getCreepPriority,
-  shouldYieldTo,
   findSideStepPosition,
-  requestMoveToPosition
+  requestMoveToPosition,
+  shouldYieldTo
 } from "./trafficManager";
 
 // =============================================================================

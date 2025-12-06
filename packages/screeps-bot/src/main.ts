@@ -1,6 +1,6 @@
-import { ErrorMapper } from "utils/ErrorMapper";
 import { loop as swarmLoop } from "./SwarmBot";
 import { registerAllConsoleCommands } from "./core/consoleCommands";
+import { ErrorMapper } from "utils/ErrorMapper";
 
 declare global {
   /*

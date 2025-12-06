@@ -5,10 +5,10 @@
  * Includes power harvesting (regular creeps) and Power Creep abilities.
  */
 
-import type { CreepAction, CreepContext } from "./types";
 import type { SwarmCreepMemory } from "../../memory/schemas";
 import { moveCreep, moveToRoom } from "../../utils/movement";
 import { safeFind } from "../../utils/safeFind";
+import type { CreepAction, CreepContext } from "./types";
 
 // =============================================================================
 // Regular Creep Power Roles

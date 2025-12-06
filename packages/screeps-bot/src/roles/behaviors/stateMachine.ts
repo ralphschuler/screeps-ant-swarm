@@ -23,7 +23,7 @@ const DEFAULT_STATE_TIMEOUT = 50;
 /**
  * Check if a state is still valid (target exists, not expired, etc.)
  */
-function isStateValid(state: CreepState | undefined, ctx: CreepContext): boolean {
+function isStateValid(state: CreepState | undefined, _ctx: CreepContext): boolean {
   if (!state) return false;
 
   // Check timeout
@@ -101,7 +101,7 @@ function isStateComplete(state: CreepState | undefined, ctx: CreepContext): bool
 /**
  * Convert an action to a state
  */
-function actionToState(action: CreepAction, ctx: CreepContext): CreepState {
+function actionToState(action: CreepAction, _ctx: CreepContext): CreepState {
   const state: CreepState = {
     action: action.type,
     startTick: Game.time,

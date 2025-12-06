@@ -36,7 +36,7 @@ export interface SourceMeta {
 /**
  * Analyze sources in a room and update swarm state
  */
-export function analyzeRoomSources(room: Room, swarm: SwarmState): void {
+export function analyzeRoomSources(room: Room, _swarm: SwarmState): void {
   const sources = room.find(FIND_SOURCES);
   const sourceMetas: Record<string, SourceMeta> = {};
 
@@ -92,14 +92,14 @@ function analyzeSource(source: Source, anchor: Structure | StructureSpawn): Sour
   // Find container near source
   const containers = source.pos.findInRange(FIND_STRUCTURES, 2, {
     filter: s => s.structureType === STRUCTURE_CONTAINER
-  }) as StructureContainer[];
+  }) ;
 
   const containerId = containers.length > 0 ? containers[0].id : undefined;
 
   // Find link near source
   const links = source.pos.findInRange(FIND_MY_STRUCTURES, 2, {
     filter: s => s.structureType === STRUCTURE_LINK
-  }) as StructureLink[];
+  }) ;
 
   const linkId = links.length > 0 ? links[0].id : undefined;
 

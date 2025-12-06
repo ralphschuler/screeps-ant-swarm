@@ -52,5 +52,9 @@
   },
   "dependencies": {
     "source-map": "~0.6.1"
+  },
+  "overrides": {
+    "axios": "^1.7.0",
+    "shelljs": "^0.8.5"
   }
 }

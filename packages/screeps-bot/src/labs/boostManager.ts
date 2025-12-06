@@ -9,7 +9,7 @@
  * Addresses Issue: #23
  */
 
-import type { SwarmState, SwarmCreepMemory } from "../memory/schemas";
+import type { SwarmCreepMemory, SwarmState } from "../memory/schemas";
 import { logger } from "../core/logger";
 
 /**
