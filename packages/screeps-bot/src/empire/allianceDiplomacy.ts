@@ -681,13 +681,7 @@ export function evaluateAttackRequest(request: AttackRequest, currentAlly: strin
   );
   
   // Count ally attack operations
-  // TODO: Consider creating a type guard function isAllyOperation(op) 
-  // Issue URL: https://github.com/ralphschuler/screeps/issues/588
-  // to centralize this logic and improve maintainability
-  const allyOps = activeOps.filter(op => {
-    const extendedOp = op as typeof op & { isAllyAssist?: boolean };
-    return extendedOp.isAllyAssist === true;
-  });
+  const allyOps = activeOps.filter(op => op.isAllyAssist === true);
   
   if (allyOps.length >= ALLY_ASSISTANCE_CONFIG.MAX_CONCURRENT_ALLY_ATTACKS) {
     return {
@@ -805,16 +799,9 @@ function coordinateAllyAttack(
     return false;
   }
   
-  // Mark this as an ally assistance operation (extend the object)
-  // TODO: Consider adding isAllyAssist and allyName to OffensiveOperation interface
-  // Issue URL: https://github.com/ralphschuler/screeps/issues/587
-  // for better type safety and consistency across the codebase
-  const extendedOp = operation as typeof operation & { 
-    isAllyAssist?: boolean; 
-    allyName?: string; 
-  };
-  extendedOp.isAllyAssist = true;
-  extendedOp.allyName = currentAlly;
+  // Mark this as an ally assistance operation
+  operation.isAllyAssist = true;
+  operation.allyName = currentAlly;
   
   // Log rally point if available
   if (rallyPoint) {

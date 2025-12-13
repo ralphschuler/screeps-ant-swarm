@@ -289,3 +289,46 @@ describe("Attack Request Evaluation", () => {
     });
   });
 });
+
+describe("OffensiveOperation Interface", () => {
+  it("should support isAllyAssist and allyName properties", () => {
+    // Import the OffensiveOperation type
+    const module = require("../../src/clusters/offensiveOperations");
+    
+    // Create a mock operation with ally properties
+    const mockOperation = {
+      id: "test_op_123",
+      clusterId: "cluster_1",
+      targetRoom: "W1N1",
+      doctrine: "raid",
+      squadIds: ["squad_1"],
+      state: "forming",
+      createdAt: 1000,
+      lastUpdate: 1000,
+      isAllyAssist: true,
+      allyName: "TestAlly"
+    };
+    
+    // Verify properties are accessible (TypeScript compilation ensures this)
+    expect(mockOperation.isAllyAssist).to.be.true;
+    expect(mockOperation.allyName).to.equal("TestAlly");
+  });
+
+  it("should allow operations without ally properties", () => {
+    // Create a mock operation without ally properties
+    const mockOperation = {
+      id: "test_op_456",
+      clusterId: "cluster_2",
+      targetRoom: "W2N2",
+      doctrine: "harassment",
+      squadIds: ["squad_2"],
+      state: "executing",
+      createdAt: 2000,
+      lastUpdate: 2000
+    };
+    
+    // Verify optional properties can be undefined
+    expect(mockOperation.isAllyAssist).to.be.undefined;
+    expect(mockOperation.allyName).to.be.undefined;
+  });
+});

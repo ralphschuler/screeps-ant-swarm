@@ -41,6 +41,10 @@ export interface OffensiveOperation {
   createdAt: number;
   /** Last update tick */
   lastUpdate: number;
+  /** Whether this operation is assisting an ally */
+  isAllyAssist?: boolean;
+  /** Name of the ally being assisted (if isAllyAssist is true) */
+  allyName?: string;
 }
 
 /**
