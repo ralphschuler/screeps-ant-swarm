@@ -5,8 +5,8 @@
  */
 
 import type { CreepAction, CreepContext } from "../../types";
+import { findDistributedTarget } from "@ralphschuler/screeps-utils";
 import { findCachedClosest } from "../../../cache";
-import { findDistributedTarget } from "../../../utils/common";
 import { cachedFindSources } from "../../../cache";
 import { createLogger } from "../../../core/logger";
 
@@ -64,19 +64,19 @@ export function findEnergy(ctx: CreepContext): CreepAction {
 
   // 4. Harvest directly (use distributed to prevent clustering on sources)
   // NOTE: Using cachedFindSources + energy filter instead of FIND_SOURCES_ACTIVE cache
-  const sources = cachedFindSources(ctx.room).filter((source: Source) => source.energy > 0);
+  const sources = cachedFindSources(ctx.room).filter(source => source.energy > 0);
   if (sources.length > 0) {
     const source = findDistributedTarget(ctx.creep, sources, "energy_source");
-    if (source && 'id' in source && 'pos' in source) {
+    if (source) {
       logger.debug(`${ctx.creep.name} (${ctx.memory.role}) selecting source ${source.id} at ${source.pos}`);
-      return { type: "harvest", target: source as Source };
+      return { type: "harvest", target: source };
     } else {
       // BUGFIX: If distribution returns null (shouldn't happen but defensive), fall back to closest source
       logger.warn(`${ctx.creep.name} (${ctx.memory.role}) found ${sources.length} sources but distribution returned null, falling back to closest`);
       const fallback = ctx.creep.pos.findClosestByRange(sources);
-      if (fallback && 'id' in fallback && 'pos' in fallback) {
+      if (fallback) {
         logger.debug(`${ctx.creep.name} (${ctx.memory.role}) using fallback source ${fallback.id} at ${fallback.pos}`);
-        return { type: "harvest", target: fallback as Source };
+        return { type: "harvest", target: fallback };
       }
     }
   }

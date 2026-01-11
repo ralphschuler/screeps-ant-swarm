@@ -53,6 +53,34 @@ export {
   evaluateEconomyBehavior
 } from "./behaviors/economy";
 
+// Export individual economy behavior functions
+export { larvaWorker } from "./behaviors/economy/larvaWorker";
+export { harvester } from "./behaviors/economy/harvester";
+export { hauler } from "./behaviors/economy/hauler";
+export { upgrader } from "./behaviors/economy/upgrader";
+export { remoteHauler } from "./behaviors/economy/remote";
+
+// =============================================================================
+// Pheromone System
+// =============================================================================
+
+export {
+  getPheromones,
+  getRoomPheromones,
+  isPheromoneElevated,
+  getDominantPheromone,
+  needsDefense,
+  needsBuilding,
+  needsHarvesting,
+  needsUpgrading,
+  needsLogistics,
+  getPriorityMultiplier,
+  getOptimalRoleFocus,
+  shouldPrioritizeDefense,
+  shouldActivateEmergencyMode,
+  getActionPriorities
+} from "./behaviors/pheromoneHelper";
+
 // =============================================================================
 // Military Behaviors
 // =============================================================================
@@ -67,6 +95,17 @@ export {
   ranger,
   evaluateMilitaryBehavior
 } from "./behaviors/military";
+
+// =============================================================================
+// Power Behaviors
+// =============================================================================
+
+export {
+  createPowerCreepContext,
+  evaluatePowerBehavior,
+  evaluatePowerCreepBehavior,
+  executePowerCreepAction
+} from "./behaviors/power";
 
 // =============================================================================
 // Utility Behaviors

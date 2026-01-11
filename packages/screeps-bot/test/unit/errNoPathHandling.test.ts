@@ -8,9 +8,9 @@
  */
 
 import { expect } from "chai";
-import type { CreepAction, CreepContext } from "../../src/roles/behaviors/types";
-import { evaluateWithStateMachine } from "../../src/roles/behaviors/stateMachine";
-import { executeAction } from "../../src/roles/behaviors/executor";
+import type { CreepAction, CreepContext } from "@ralphschuler/screeps-roles";
+import { evaluateWithStateMachine } from "@ralphschuler/screeps-roles";
+import { executeAction } from "@ralphschuler/screeps-roles";
 
 describe("ERR_NO_PATH Handling", () => {
   let mockCreep: any;

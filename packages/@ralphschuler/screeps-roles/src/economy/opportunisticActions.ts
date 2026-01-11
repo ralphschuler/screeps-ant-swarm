@@ -1,15 +1,13 @@
 /**
- * Opportunistic actions stub for roles package
+ * Opportunistic Actions - Stub for roles package
+ * 
+ * Provides interface for opportunistic creep actions.
+ * Full implementation should be provided by consuming application.
  */
 
-import type { CreepAction, CreepContext } from "../behaviors/types";
+import type { CreepAction } from "../behaviors/types";
 
-export function applyOpportunisticActions(
-  creep: Creep,
-  action: CreepAction,
-  ctx?: CreepContext
-): CreepAction {
-  // No-op stub - opportunistic actions are optional optimizations
-  // Just return the original action unchanged
+export function applyOpportunisticActions(creep: Creep, action: CreepAction): CreepAction {
+  // Stub - return action unchanged
   return action;
 }

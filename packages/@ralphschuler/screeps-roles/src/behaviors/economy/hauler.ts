@@ -9,10 +9,10 @@
  */
 
 import type { CreepAction, CreepContext } from "../types";
+import { findDistributedTarget } from "@ralphschuler/screeps-utils";
 import { findCachedClosest } from "../../cache";
-import { findDistributedTarget } from "../../utils/common";
 import { updateWorkingState, switchToCollectionMode } from "./common/stateManagement";
-import { createLogger } from "../../core/logger";
+import { createLogger } from "@ralphschuler/screeps-core";
 
 const logger = createLogger("HaulerBehavior");
 

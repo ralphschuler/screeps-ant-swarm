@@ -6,11 +6,11 @@
  */
 
 import type { RoomIntel, EmpireMemory } from "../memory/schemas";
+import { safeFind } from "@ralphschuler/screeps-utils";
 import { findCachedClosest } from "../cache";
 import { isExit } from "screeps-cartographer";
-import { safeFind } from "../utils/optimization";
 import type { CreepAction, CreepContext } from "./types";
-import { createLogger } from "../core/logger";
+import { createLogger } from "@ralphschuler/screeps-core";
 import { memoryManager } from "../memory/manager";
 
 const logger = createLogger("UtilityBehaviors");
@@ -26,7 +26,6 @@ const logger = createLogger("UtilityBehaviors");
  */
 function recordRoomIntel(room: Room, empire: EmpireMemory): void {
   const knownRooms = empire.knownRooms;
-  if (!knownRooms) return;
 
   const existingIntel = knownRooms[room.name];
   const lastSeen = existingIntel?.lastSeen ?? 0;
@@ -110,7 +109,6 @@ function findNextExploreTarget(
   previousRoom?: string
 ): string | undefined {
   const knownRooms = empire.knownRooms;
-  if (!knownRooms) return undefined;
   const exits = Game.map.describeExits(currentRoom);
   if (!exits) return undefined;
 

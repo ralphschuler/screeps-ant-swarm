@@ -6,33 +6,16 @@
  */
 
 import type { SquadMemory, SwarmCreepMemory } from "../memory/schemas";
+import { safeFindClosestByRange } from "@ralphschuler/screeps-utils";
+import { checkAndExecuteRetreat } from "@ralphschuler/screeps-defense";
 import { findCachedClosest } from "../cache";
-import { safeFindClosestByRange } from "../utils/optimization";
 import { registerMilitaryCacheClear } from "./context";
 import type { CreepAction, CreepContext } from "./types";
-import { createLogger } from "../core/logger";
-import { getCollectionPoint } from "../utils/common";
+import { createLogger } from "@ralphschuler/screeps-core";
 import { globalCache } from "../cache";
+import { getCollectionPoint } from "../utils/common";
 
 const logger = createLogger("MilitaryBehaviors");
-
-/**
- * Stub for retreat protocol - checks if creep should retreat based on health
- * Returns true if retreat was executed, false otherwise
- */
-function checkAndExecuteRetreat(creep: Creep): boolean {
-  // Simple retreat logic: if below 30% health, return to home room
-  const hpPercent = creep.hits / creep.hitsMax;
-  if (hpPercent < 0.3) {
-    const memory = creep.memory as unknown as SwarmCreepMemory;
-    const homeRoom = memory.homeRoom || creep.room.name;
-    if (creep.room.name !== homeRoom) {
-      creep.moveTo(new RoomPosition(25, 25, homeRoom));
-      return true;
-    }
-  }
-  return false;
-}
 
 // =============================================================================
 // Patrol System
@@ -76,8 +59,11 @@ function getPatrolWaypoints(room: Room): RoomPosition[] {
   const spawnCount = spawns.length;
   
   // Try to get cached waypoints with metadata
-  const cacheKey = `${PATROL_CACHE_NAMESPACE}_${room.name}`;
-  const cached = globalCache.get(cacheKey) as CachedPatrolWaypoints | undefined;
+  const cacheKey = room.name;
+  const cached = globalCache.get<CachedPatrolWaypoints>(
+    cacheKey, 
+    { namespace: PATROL_CACHE_NAMESPACE }
+  );
   
   // Check if cached data is valid (same spawn count)
   if (cached && cached.metadata.spawnCount === spawnCount) {
@@ -141,7 +127,10 @@ function getPatrolWaypoints(room: Room): RoomPosition[] {
     metadata: { spawnCount }
   };
   
-  globalCache.set(cacheKey, cacheData);
+  globalCache.set(cacheKey, cacheData, {
+    namespace: PATROL_CACHE_NAMESPACE,
+    ttl: PATROL_WAYPOINT_TTL
+  });
   
   return filtered;
 }
@@ -245,7 +234,7 @@ function hasBodyPart(creep: Creep, part: BodyPartConstant): boolean {
 function moveToCollectionPoint(ctx: CreepContext, debugLabel: string): CreepAction | null {
   if (!ctx.swarmState) return null;
   
-  const collectionPoint = getCollectionPoint(ctx.room, ctx.swarmState);
+  const collectionPoint = getCollectionPoint(ctx.room.name);
   if (!collectionPoint) return null;
   
   // Only move if not already near collection point
@@ -939,7 +928,6 @@ function squadBehavior(ctx: CreepContext, squad: SquadMemory): CreepAction {
   // SQUAD COORDINATION: Check if we should wait for other squad members
   const shouldWaitForSquad = (state: string): boolean => {
     if (state !== "gathering" && state !== "moving") return false;
-    if (!squad.members) return false;
     
     // Count squad members in current room
     const membersInRoom = squad.members.filter(name => {
@@ -955,7 +943,6 @@ function squadBehavior(ctx: CreepContext, squad: SquadMemory): CreepAction {
   switch (squad.state) {
     case "gathering":
       // Move to rally point
-      if (!squad.rallyRoom) return { type: "idle" };
       if (ctx.room.name !== squad.rallyRoom) {
         return { type: "moveToRoom", roomName: squad.rallyRoom };
       }
@@ -969,7 +956,7 @@ function squadBehavior(ctx: CreepContext, squad: SquadMemory): CreepAction {
       return { type: "idle" };
 
     case "moving": {
-      const targetRoom = squad.targetRoom;
+      const targetRoom = squad.targetRooms[0];
       if (!targetRoom) return { type: "idle" };
       
       if (ctx.room.name !== targetRoom) {
@@ -987,7 +974,7 @@ function squadBehavior(ctx: CreepContext, squad: SquadMemory): CreepAction {
       // Default to 30% if retreatThreshold is not set
       const hpPercent = ctx.creep.hits / ctx.creep.hitsMax;
       const retreatThreshold = squad.retreatThreshold ?? 0.3;
-      if (hpPercent < retreatThreshold && squad.rallyRoom) {
+      if (hpPercent < retreatThreshold) {
         // Individual retreat to rally room
         if (ctx.room.name !== squad.rallyRoom) {
           return { type: "moveToRoom", roomName: squad.rallyRoom };
@@ -1010,7 +997,6 @@ function squadBehavior(ctx: CreepContext, squad: SquadMemory): CreepAction {
       }
 
     case "retreating":
-      if (!squad.rallyRoom) return { type: "idle" };
       if (ctx.room.name !== squad.rallyRoom) {
         return { type: "moveToRoom", roomName: squad.rallyRoom };
       }

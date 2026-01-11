@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import { hauler } from "../../src/roles/behaviors/economy/hauler";
-import { remoteHauler } from "../../src/roles/behaviors/economy/remote";
-import type { CreepContext } from "../../src/roles/behaviors/types";
+import { hauler } from "@ralphschuler/screeps-roles";
+import { remoteHauler } from "@ralphschuler/screeps-roles";
+import type { CreepContext } from "@ralphschuler/screeps-roles";
 import type { SwarmCreepMemory } from "../../src/memory/schemas";
 
 /**

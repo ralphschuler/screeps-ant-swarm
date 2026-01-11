@@ -16,7 +16,7 @@ import {
   needsBuilding,
   needsHarvesting,
   needsUpgrading
-} from "../../src/roles/behaviors/pheromoneHelper";
+} from "@ralphschuler/screeps-roles";
 import type { PheromoneState } from "../../src/memory/schemas";
 
 describe("Pheromone Integration", () => {

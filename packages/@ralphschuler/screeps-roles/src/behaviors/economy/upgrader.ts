@@ -135,7 +135,7 @@ export function upgrader(ctx: CreepContext): CreepAction {
 
   // Last resort: harvest from source (cache for 30 ticks)
   // NOTE: Using cachedFindSources + energy filter instead of FIND_SOURCES_ACTIVE cache
-  const sources = cachedFindSources(ctx.room).filter((source: Source) => source.energy > 0);
+  const sources = cachedFindSources(ctx.room).filter(source => source.energy > 0);
   if (sources.length > 0) {
     const source = findCachedClosest(ctx.creep, sources, "upgrader_source", 30);
     if (source) return { type: "harvest", target: source };

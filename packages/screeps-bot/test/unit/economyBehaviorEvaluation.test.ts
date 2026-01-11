@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { evaluateEconomyBehavior } from "../../src/roles/behaviors/economy/index";
-import type { CreepContext } from "../../src/roles/behaviors/types";
+import { evaluateEconomyBehavior } from "@ralphschuler/screeps-roles";
+import type { CreepContext } from "@ralphschuler/screeps-roles";
 import type { SwarmCreepMemory } from "../../src/memory/schemas";
 
 /**

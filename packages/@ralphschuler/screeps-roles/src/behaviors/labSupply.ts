@@ -79,7 +79,7 @@ function deliverToLabs(ctx: CreepContext): CreepAction {
   }
 
   // Sort by priority
-  needs.sort((a: any, b: any) => b.priority - a.priority);
+  needs.sort((a, b) => b.priority - a.priority);
   const need = needs[0];
   if (!need) return { type: "idle" };
 
@@ -111,7 +111,7 @@ function collectForLabs(ctx: CreepContext): CreepAction {
   const overflow = labManager.getLabOverflow(ctx.room.name);
   if (overflow.length > 0) {
     // Sort by priority
-    overflow.sort((a: any, b: any) => b.priority - a.priority);
+    overflow.sort((a, b) => b.priority - a.priority);
     const overflowLab = overflow[0];
     if (overflowLab) {
       const lab = Game.getObjectById(overflowLab.labId);
@@ -125,13 +125,13 @@ function collectForLabs(ctx: CreepContext): CreepAction {
   const needs = labManager.getLabResourceNeeds(ctx.room.name);
   if (needs.length > 0 && ctx.terminal) {
     // Sort by priority
-    needs.sort((a: any, b: any) => b.priority - a.priority);
+    needs.sort((a, b) => b.priority - a.priority);
     const need = needs[0];
     if (need) {
-      const available = ctx.terminal.store[need.resourceType as ResourceConstant] ?? 0;
+      const available = ctx.terminal.store[need.resourceType] ?? 0;
       if (available > 0) {
         ctx.memory.targetId = need.labId; // Remember which lab this is for
-        return { type: "withdraw", target: ctx.terminal, resourceType: need.resourceType as ResourceConstant };
+        return { type: "withdraw", target: ctx.terminal, resourceType: need.resourceType };
       }
     }
   }

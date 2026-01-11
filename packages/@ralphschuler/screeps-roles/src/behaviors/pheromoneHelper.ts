@@ -40,8 +40,7 @@ export function isPheromoneElevated(
   type: keyof PheromoneState,
   threshold = 20
 ): boolean {
-  const value = pheromones[type];
-  return typeof value === 'number' && value >= threshold;
+  return pheromones[type] >= threshold;
 }
 
 /**
@@ -52,9 +51,8 @@ export function getDominantPheromone(pheromones: PheromoneState): keyof Pheromon
   let maxValue = 1; // Minimum threshold
 
   for (const key of Object.keys(pheromones) as (keyof PheromoneState)[]) {
-    const value = pheromones[key];
-    if (typeof value === 'number' && value > maxValue) {
-      maxValue = value;
+    if (pheromones[key] > maxValue) {
+      maxValue = pheromones[key];
       maxKey = key;
     }
   }
@@ -66,35 +64,35 @@ export function getDominantPheromone(pheromones: PheromoneState): keyof Pheromon
  * Check if room needs defensive attention based on pheromones
  */
 export function needsDefense(pheromones: PheromoneState): boolean {
-  return (pheromones.defense ?? 0) > 20 || (pheromones.war ?? 0) > 25 || (pheromones.siege ?? 0) > 30;
+  return pheromones.defense > 20 || pheromones.war > 25 || pheromones.siege > 30;
 }
 
 /**
  * Check if room needs building based on pheromones
  */
 export function needsBuilding(pheromones: PheromoneState): boolean {
-  return (pheromones.build ?? 0) > 15;
+  return pheromones.build > 15;
 }
 
 /**
  * Check if room needs harvesting based on pheromones
  */
 export function needsHarvesting(pheromones: PheromoneState): boolean {
-  return (pheromones.harvest ?? 0) > 15;
+  return pheromones.harvest > 15;
 }
 
 /**
  * Check if room needs upgrading based on pheromones
  */
 export function needsUpgrading(pheromones: PheromoneState): boolean {
-  return (pheromones.upgrade ?? 0) > 15;
+  return pheromones.upgrade > 15;
 }
 
 /**
  * Check if room needs logistics (energy distribution) based on pheromones
  */
 export function needsLogistics(pheromones: PheromoneState): boolean {
-  return (pheromones.logistics ?? 0) > 15;
+  return pheromones.logistics > 15;
 }
 
 /**
@@ -112,8 +110,7 @@ export function getPriorityMultiplier(
   pheromones: PheromoneState,
   taskType: keyof PheromoneState
 ): number {
-  const rawValue = pheromones[taskType];
-  const value = typeof rawValue === 'number' ? rawValue : 0;
+  const value = pheromones[taskType];
   const range = PRIORITY_MAX - PRIORITY_MIN;
   // Scale: 0-100 pheromone maps to 0.5-2.0 multiplier
   return PRIORITY_MIN + (value / PHEROMONE_MAX_VALUE) * range;
@@ -141,7 +138,7 @@ export function getOptimalRoleFocus(pheromones: PheromoneState): {
 
   // Adjust based on pheromones
   // Defense/war/siege increase military priority
-  const combatPheromonesTotal = (pheromones.defense ?? 0) + (pheromones.war ?? 0) + (pheromones.siege ?? 0);
+  const combatPheromonesTotal = pheromones.defense + pheromones.war + pheromones.siege;
   if (combatPheromonesTotal > 50) {
     weights.military += 0.3;
     weights.economy -= 0.15;
@@ -149,7 +146,7 @@ export function getOptimalRoleFocus(pheromones: PheromoneState): {
   }
 
   // High harvest/build/upgrade pheromones increase economy priority
-  const economyPheromonesTotal = (pheromones.harvest ?? 0) + (pheromones.build ?? 0) + (pheromones.upgrade ?? 0);
+  const economyPheromonesTotal = pheromones.harvest + pheromones.build + pheromones.upgrade;
   if (economyPheromonesTotal > 60) {
     weights.economy += 0.2;
     weights.military -= 0.1;
@@ -157,7 +154,7 @@ export function getOptimalRoleFocus(pheromones: PheromoneState): {
   }
 
   // Expand pheromone increases utility (claimers, scouts)
-  if ((pheromones.expand ?? 0) > 30) {
+  if (pheromones.expand > 30) {
     weights.utility += 0.2;
     weights.economy -= 0.1;
     weights.military -= 0.1;
@@ -191,7 +188,7 @@ export function shouldActivateEmergencyMode(creep: Creep): boolean {
   if (!pheromones) return false;
 
   // Emergency mode when defense is critical or siege is active
-  return (pheromones.defense ?? 0) > 50 || (pheromones.siege ?? 0) > 40;
+  return pheromones.defense > 50 || pheromones.siege > 40;
 }
 
 /**
@@ -205,13 +202,10 @@ export function getActionPriorities(pheromones: PheromoneState): {
   const actions: { action: keyof PheromoneState; priority: number }[] = [];
 
   for (const key of Object.keys(pheromones) as (keyof PheromoneState)[]) {
-    const priority = pheromones[key];
-    if (typeof priority === 'number') {
-      actions.push({
-        action: key,
-        priority
-      });
-    }
+    actions.push({
+      action: key,
+      priority: pheromones[key]
+    });
   }
 
   // Sort by priority descending

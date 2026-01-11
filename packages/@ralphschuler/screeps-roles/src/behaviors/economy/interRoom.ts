@@ -16,18 +16,11 @@ export function interRoomCarrier(ctx: CreepContext): CreepAction {
   const mem = ctx.memory;
 
   // If no transfer request, go idle (should be assigned by spawn logic)
-  if (!mem.transferRequest || typeof mem.transferRequest !== 'string') {
+  if (!mem.transferRequest) {
     return { type: "idle" };
   }
 
-  // Parse transferRequest (expected format: "fromRoom:toRoom:resourceType")
-  const parts = mem.transferRequest.split(':');
-  if (parts.length !== 3) {
-    return { type: "idle" };
-  }
-  
-  const [fromRoom, toRoom, resourceTypeStr] = parts;
-  const resourceType = resourceTypeStr as ResourceConstant;
+  const { fromRoom, toRoom, resourceType } = mem.transferRequest;
   const isCarrying = ctx.creep.store.getUsedCapacity(resourceType) > 0;
 
   if (isCarrying) {
@@ -48,7 +41,8 @@ export function interRoomCarrier(ctx: CreepContext): CreepAction {
     // Find containers with space
     const containers = cachedRoomFind(room, FIND_STRUCTURES, {
       filter: (s: Structure) =>
-        s.structureType === STRUCTURE_CONTAINER && (s as StructureContainer).store.getFreeCapacity(resourceType) > 0
+        s.structureType === STRUCTURE_CONTAINER && (s as StructureContainer).store.getFreeCapacity(resourceType) > 0,
+      filterKey: `container_${resourceType}`
     }) as StructureContainer[];
 
     if (containers.length > 0) {
@@ -83,7 +77,8 @@ export function interRoomCarrier(ctx: CreepContext): CreepAction {
 
     // Try containers
     const containers = cachedRoomFind(room, FIND_STRUCTURES, {
-      filter: (s: Structure) => s.structureType === STRUCTURE_CONTAINER && (s as StructureContainer).store.getUsedCapacity(resourceType) > 0
+      filter: (s: Structure) => s.structureType === STRUCTURE_CONTAINER && (s as StructureContainer).store.getUsedCapacity(resourceType) > 0,
+      filterKey: `container_${resourceType}`
     }) as StructureContainer[];
 
     if (containers.length > 0) {

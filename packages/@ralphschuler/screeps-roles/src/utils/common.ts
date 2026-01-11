@@ -1,30 +1,20 @@
 /**
- * Common utilities stub for roles package
+ * Common utilities for roles package
  */
 
-import type { SwarmState } from "../memory/schemas";
-
-export function getCollectionPoint(room: Room, swarmState?: SwarmState): RoomPosition | null {
-  // Return storage position if available, otherwise controller
-  if (room.storage) {
-    return room.storage.pos;
+/**
+ * Get a collection point for creeps to gather at
+ * Simple implementation - returns spawn position as fallback
+ */
+export function getCollectionPoint(roomName: string): RoomPosition | null {
+  const room = Game.rooms[roomName];
+  if (!room) return null;
+  
+  const spawns = room.find(FIND_MY_SPAWNS);
+  if (spawns.length > 0) {
+    return spawns[0].pos;
   }
-  if (room.controller) {
-    return room.controller.pos;
-  }
-  return null;
-}
-
-export function findDistributedTarget<T extends _HasRoomPosition>(
-  creep: Creep,
-  targets: T[],
-  cacheKey?: string,
-  opts?: { filter?: (target: T) => boolean }
-): T | null {
-  let filtered = targets;
-  if (opts?.filter) {
-    filtered = targets.filter(opts.filter);
-  }
-  if (filtered.length === 0) return null;
-  return creep.pos.findClosestByPath(filtered) as T | null;
+  
+  // Fallback to room center
+  return new RoomPosition(25, 25, roomName);
 }

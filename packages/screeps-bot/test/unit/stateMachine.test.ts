@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { evaluateWithStateMachine } from "../../src/roles/behaviors/stateMachine";
-import type { CreepContext, CreepAction } from "../../src/roles/behaviors/types";
+import { evaluateWithStateMachine } from "@ralphschuler/screeps-roles";
+import type { CreepContext, CreepAction } from "@ralphschuler/screeps-roles";
 import type { SwarmCreepMemory, CreepState } from "../../src/memory/schemas";
 
 /**

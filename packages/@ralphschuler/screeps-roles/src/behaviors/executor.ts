@@ -29,12 +29,12 @@ import {
   clearCachedPath,
   isExit
 } from "screeps-cartographer";
-import { getCollectionPoint } from "../utils/common";
 import { memoryManager } from "../memory/manager";
 import { clearClosestCache as clearAllCachedTargets } from "../cache";
-import { createLogger } from "../core/logger";
-import * as metrics from "../utils/metrics";
+import { createLogger } from "@ralphschuler/screeps-core";
+import * as metrics from "@ralphschuler/screeps-stats";
 import { applyOpportunisticActions } from "../economy/opportunisticActions";
+import { getCollectionPoint } from "../utils/common";
 
 const logger = createLogger("ActionExecutor");
 
@@ -74,7 +74,7 @@ export function executeAction(creep: Creep, action: CreepAction, ctx: CreepConte
   // OPTIMIZATION: Apply opportunistic actions (Phase 4)
   // This allows creeps to pick up dropped energy, repair structures, or transfer
   // to nearby critical structures while moving, improving overall efficiency
-  const optimizedAction = applyOpportunisticActions(creep, action, ctx);
+  const optimizedAction = applyOpportunisticActions(creep, action);
   
   // If action was modified, log it for monitoring
   if (action.type !== optimizedAction.type) {
@@ -337,7 +337,7 @@ export function executeAction(creep: Creep, action: CreepAction, ctx: CreepConte
       const room = Game.rooms[creep.pos.roomName];
       if (room && room.controller?.my) {
         const swarmState = memoryManager.getOrInitSwarmState(room.name);
-        const collectionPoint = getCollectionPoint(room, swarmState);
+        const collectionPoint = getCollectionPoint(room.name);
         if (collectionPoint) {
           // Move to collection point if not already there
           if (!creep.pos.isEqualTo(collectionPoint)) {
@@ -376,7 +376,7 @@ export function executeAction(creep: Creep, action: CreepAction, ctx: CreepConte
     // When multiple creeps target the same structure, one may fill it and clear state.
     // Without clearing the cache, the other creep will immediately re-select the same
     // now-full target, creating an infinite loop where both creeps get stuck.
-    clearAllCachedTargets(creep.name);
+    clearAllCachedTargets(creep);
   }
 
   // Update working state based on carry capacity

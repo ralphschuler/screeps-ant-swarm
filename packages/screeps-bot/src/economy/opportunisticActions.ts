@@ -20,7 +20,7 @@
  */
 
 import { createLogger } from "@ralphschuler/screeps-core";
-import type { CreepAction } from "../roles/behaviors/types";
+import type { CreepAction } from "@ralphschuler/screeps-roles";
 
 const logger = createLogger("OpportunisticActions");
 

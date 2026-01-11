@@ -9,7 +9,7 @@ import type { CreepAction, CreepContext } from "../types";
 import { updateWorkingState, switchToCollectionMode } from "./common/stateManagement";
 import { deliverEnergy, findEnergy } from "./common/energyManagement";
 import { getPheromones, needsBuilding, needsUpgrading } from "../pheromoneHelper";
-import { createLogger } from "../../core/logger";
+import { createLogger } from "@ralphschuler/screeps-core";
 
 const logger = createLogger("LarvaWorkerBehavior");
 

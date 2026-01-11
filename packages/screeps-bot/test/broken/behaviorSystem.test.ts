@@ -8,12 +8,12 @@
  */
 
 import { expect } from "chai";
-import type { CreepAction, CreepContext } from "../../src/roles/behaviors/types";
-import { evaluateEconomyBehavior } from "../../src/roles/behaviors/economy";
-import { evaluateMilitaryBehavior } from "../../src/roles/behaviors/military";
-import { evaluateUtilityBehavior } from "../../src/roles/behaviors/utility";
-import { evaluateWithStateMachine } from "../../src/roles/behaviors/stateMachine";
-import { executeAction } from "../../src/roles/behaviors/executor";
+import type { CreepAction, CreepContext } from "@ralphschuler/screeps-roles";
+import { evaluateEconomyBehavior } from "@ralphschuler/screeps-roles";
+import { evaluateMilitaryBehavior } from "@ralphschuler/screeps-roles";
+import { evaluateUtilityBehavior } from "@ralphschuler/screeps-roles";
+import { evaluateWithStateMachine } from "@ralphschuler/screeps-roles";
+import { executeAction } from "@ralphschuler/screeps-roles";
 
 // Constants from state machine module
 const STUCK_DETECTION_THRESHOLD = 5; // From stateMachine.ts

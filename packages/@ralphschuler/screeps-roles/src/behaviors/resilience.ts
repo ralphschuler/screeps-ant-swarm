@@ -19,7 +19,7 @@
  */
 
 import type { CreepAction, CreepContext, BehaviorFunction } from "./types";
-import { createLogger } from "../core/logger";
+import { createLogger } from "@ralphschuler/screeps-core";
 
 const logger = createLogger("BehaviorResilience");
 
@@ -126,8 +126,8 @@ function validateContext(ctx: CreepContext): string | undefined {
   // Check for corrupted memory state
   if (ctx.memory.state) {
     const state = ctx.memory.state;
-    if (state.startTick !== undefined && state.startTick < 0) return "Invalid state startTick";
-    if (state.timeout !== undefined && state.timeout < 0) return "Invalid state timeout";
+    if (state.startTick < 0) return "Invalid state startTick";
+    if (state.timeout < 0) return "Invalid state timeout";
   }
   
   return undefined;
@@ -298,7 +298,7 @@ export function assessBehaviorHealth(ctx: CreepContext): number {
   }
   
   // State running too long
-  if (ctx.memory.state && ctx.memory.state.startTick !== undefined && ctx.memory.state.timeout !== undefined) {
+  if (ctx.memory.state) {
     const age = Game.time - ctx.memory.state.startTick;
     if (age > ctx.memory.state.timeout) {
       health -= 20;
@@ -339,7 +339,7 @@ export function shouldUseEmergencyMode(ctx: CreepContext): boolean {
   if (health < 30) return true;
   
   // Switch if room is under heavy attack
-  if (ctx.swarmState && ctx.swarmState.danger !== undefined) {
+  if (ctx.swarmState) {
     if (ctx.swarmState.danger >= 3) return true; // Siege/Nuke
     if (ctx.swarmState.danger >= 2 && health < 50) return true; // Active attack
   }

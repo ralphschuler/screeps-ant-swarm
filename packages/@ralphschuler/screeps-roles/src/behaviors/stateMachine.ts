@@ -44,7 +44,7 @@
 
 import type { CreepAction, CreepContext } from "./types";
 import type { CreepState } from "../memory/schemas";
-import { createLogger } from "../core/logger";
+import { createLogger } from "@ralphschuler/screeps-core";
 
 const logger = createLogger("StateMachine");
 
@@ -81,15 +81,13 @@ function getStateValidity(state: CreepState | undefined, ctx: CreepContext): Sta
   if (!state) return { valid: false, reason: "noState" };
 
   // Check timeout
-  if (state.startTick !== undefined && state.timeout !== undefined) {
-    const age = Game.time - state.startTick;
-    if (age > state.timeout) {
-      return {
-        valid: false,
-        reason: "expired",
-        meta: { age, timeout: state.timeout }
-      };
-    }
+  const age = Game.time - state.startTick;
+  if (age > state.timeout) {
+    return {
+      valid: false,
+      reason: "expired",
+      meta: { age, timeout: state.timeout }
+    };
   }
 
   // Validate target if present

@@ -52,7 +52,7 @@ export function remoteHarvester(ctx: CreepContext): CreepAction {
     if (dangerousHostiles.length > 0) {
       // If in remote room with hostiles, return home for safety
       if (ctx.room.name === targetRoom) {
-        return { type: "moveToRoom", roomName: ctx.memory.homeRoom || ctx.homeRoom };
+        return { type: "moveToRoom", roomName: ctx.memory.homeRoom };
       }
       // If in transit, flee from hostiles
       return { type: "flee", from: dangerousHostiles.map(h => h.pos) };
@@ -186,7 +186,7 @@ export function remoteHauler(ctx: CreepContext): CreepAction {
     if (dangerousHostiles.length > 0) {
       // If carrying energy, prioritize getting home
       if (isWorking && ctx.room.name !== homeRoom) {
-        return { type: "moveToRoom", roomName: homeRoom || ctx.homeRoom };
+        return { type: "moveToRoom", roomName: homeRoom };
       }
       // Otherwise flee from hostiles
       return { type: "flee", from: dangerousHostiles.map(h => h.pos) };
@@ -196,7 +196,7 @@ export function remoteHauler(ctx: CreepContext): CreepAction {
   if (isWorking) {
     // Has energy - return to home room and deliver
     if (ctx.room.name !== homeRoom) {
-      return { type: "moveToRoom", roomName: homeRoom || ctx.homeRoom };
+      return { type: "moveToRoom", roomName: homeRoom };
     }
 
     // In home room - deliver with priority: spawn > extensions > towers > storage > containers
@@ -275,7 +275,8 @@ export function remoteHauler(ctx: CreepContext): CreepAction {
     const containers = cachedRoomFind(ctx.room, FIND_STRUCTURES, {
       filter: (s: Structure) => 
         s.structureType === STRUCTURE_CONTAINER && 
-        (s as StructureContainer).store.getUsedCapacity(RESOURCE_ENERGY) >= minEnergyThreshold
+        (s as StructureContainer).store.getUsedCapacity(RESOURCE_ENERGY) >= minEnergyThreshold,
+      filterKey: 'remoteContainers'
     }) as StructureContainer[];
 
     if (containers.length > 0) {
@@ -285,7 +286,7 @@ export function remoteHauler(ctx: CreepContext): CreepAction {
 
     // Check for dropped energy (cache 3 ticks - they disappear quickly)
     // For dropped resources, collect even smaller amounts to prevent decay
-    const dropped = cachedFindDroppedResources(ctx.room).filter((r: Resource) => r.amount > 50);
+    const dropped = cachedFindDroppedResources(ctx.room, RESOURCE_ENERGY).filter(r => r.amount > 50);
 
     if (dropped.length > 0) {
       const closest = findCachedClosest(ctx.creep, dropped, "remoteHauler_remoteDrop", 3);
@@ -295,7 +296,8 @@ export function remoteHauler(ctx: CreepContext): CreepAction {
     // If no energy meets threshold, wait near a container for it to fill
     if (containers.length === 0) {
       const anyContainer = cachedRoomFind(ctx.room, FIND_STRUCTURES, {
-        filter: (s: Structure) => s.structureType === STRUCTURE_CONTAINER
+        filter: (s: Structure) => s.structureType === STRUCTURE_CONTAINER,
+        filterKey: 'containers'
       }) as StructureContainer[];
       
       if (anyContainer.length > 0) {

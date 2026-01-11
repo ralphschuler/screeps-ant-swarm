@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { harvester } from "../../src/roles/behaviors/economy/harvester";
-import type { CreepContext } from "../../src/roles/behaviors/types";
+import { harvester } from "@ralphschuler/screeps-roles";
+import type { CreepContext } from "@ralphschuler/screeps-roles";
 import type { SwarmCreepMemory } from "../../src/memory/schemas";
 
 /**
