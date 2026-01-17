@@ -24,7 +24,7 @@
     "@screeps/backend": "*"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.9",
     "typescript": "^5.4.3"
   },
   "screepsmod": {
